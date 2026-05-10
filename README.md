@@ -57,6 +57,10 @@ python flappy_bird.py
 | Key | Action |
 |-----|--------|
 | `SPACE` | Flap / Start Game / Return to Menu |
+| `F11` | Toggle fullscreen |
+| `ESC` | Exit fullscreen |
+| `T` | Cycle color theme (on menu) |
+| `M` | Toggle music on/off |
 
 ---
 
@@ -116,11 +120,31 @@ python flappy_bird.py
 </td>
 <td>
 
-### 🎯 Polished UX
-- Neon glow text rendering
-- Pulsing "PRESS SPACE" prompts
-- Smooth menu → play → game over flow
-- 60 FPS locked frame rate
+### 🎵 Synthwave Audio
+- Procedurally generated soundtrack
+- Retro SFX: flap, score, death, unlock
+- Zero audio files — pure waveform math
+- Toggle music with `M` key
+
+</td>
+</tr>
+<tr>
+<td>
+
+### 🎨 Unlockable Themes
+- 5 color palettes: Cyberpunk, Vaporwave, Matrix, Sunset, Arctic
+- Unlock by reaching score milestones
+- Cycle with `T` on menu screen
+- Persisted across sessions
+
+</td>
+<td>
+
+### 🖥️ Fullscreen & Saves
+- `F` / `F11` toggle fullscreen with scaling
+- Persistent high scores saved as JSON
+- Top 10 leaderboard with dates
+- Settings remembered between sessions
 
 </td>
 </tr>
@@ -130,11 +154,14 @@ python flappy_bird.py
 
 ## 🏗 Architecture
 
-The entire game is a **single 693-line Python file** — zero external assets, zero configuration files, zero build steps.
+Modular design — clean separation of concerns, zero external assets.
 
 ```
 flappybirdgame/
-├── flappy_bird.py      # The entire game
+├── flappy_bird.py      # Game engine, rendering, state machine
+├── themes.py           # 5 color palettes with unlock system
+├── sound_engine.py     # Procedural audio synthesis
+├── save_manager.py     # JSON persistence (scores, settings)
 ├── requirements.txt    # pygame>=2.5.0
 ├── assets/
 │   └── gameplay.png    # Screenshot for README
@@ -143,20 +170,16 @@ flappybirdgame/
 └── README.md
 ```
 
-### Code Structure
+### Modules
 
-| Section | Lines | What It Does |
-|---------|-------|--------------|
-| **Constants & Colors** | 1–46 | Neon palette, physics tuning, display config |
-| **Utilities** | 49–111 | Gradient rendering, glow effects, grid overlay |
-| **Particle System** | 114–169 | Pooled particles with alpha fade and physics |
-| **Bird** | 172–255 | Player entity — trail, animation, collision rect |
-| **Pipe** | 258–329 | Obstacles — glow, caps, stripe accents |
-| **Environment** | 332–389 | Scanlines, ground, city skyline, stars |
-| **Game** | 392–675 | State machine, input, physics, rendering |
-| **Main Loop** | 678–693 | Entry point — event → update → draw @ 60 FPS |
+| Module | What It Does |
+|--------|--------------|
+| **flappy_bird.py** | Core game loop, entities, rendering, fullscreen display manager |
+| **themes.py** | 5 neon palettes with score-based unlock thresholds |
+| **sound_engine.py** | Generates all audio from sine/square waves at runtime |
+| **save_manager.py** | Persists high scores, unlocked themes, audio settings as JSON |
 
-> **Design philosophy:** Keep it in one file. No OOP ceremony. Anyone should be able to read top-to-bottom and understand the entire game in 15 minutes.
+> **Design philosophy:** No sprites, no WAV files, no build tools. Everything is procedurally generated from code.
 
 ---
 
@@ -177,21 +200,23 @@ This makes it:
 
 ## 🔧 Customization
 
-Want to make it yours? Tweak these constants at the top of `flappy_bird.py`:
+**Physics** — tweak constants at the top of `flappy_bird.py`:
 
 ```python
-# Physics
 GRAVITY = 0.45          # Higher = heavier bird
 FLAP_STRENGTH = -8.5    # More negative = stronger flap
 PIPE_GAP = 170          # Larger = easier
 PIPE_SPEED_BASE = 3.0   # Starting scroll speed
+```
 
-# Palette — swap these for a totally different vibe
-NEON_CYAN = (0, 255, 255)
-NEON_PINK = (255, 0, 200)
-NEON_GREEN = (57, 255, 20)
-BG_TOP = (5, 5, 30)     # Sky gradient top
-BG_BOT = (15, 0, 40)    # Sky gradient bottom
+**Themes** — add your own palette in `themes.py`:
+
+```python
+Theme("my_theme", "MY CUSTOM VIBE", {
+    "bg_top": (5, 5, 30), "bg_bot": (15, 0, 40),
+    "bird": (0, 255, 255), "pipe": (0, 200, 180),
+    # ... full color dict
+}, unlock_at=0)
 ```
 
 ---
@@ -209,12 +234,12 @@ No other dependencies. No build tools. No package managers beyond pip.
 
 ## 🚀 Roadmap
 
-- [ ] 🎵 Sound effects & synthwave soundtrack
-- [ ] 💾 Persistent high scores (JSON)
+- [x] 🎵 Sound effects & synthwave soundtrack
+- [x] 💾 Persistent high scores (JSON)
+- [x] 🖥️ Fullscreen / resolution toggle
+- [x] 🎨 Unlockable color themes
 - [ ] 🎮 Gamepad support
-- [ ] 🖥️ Fullscreen / resolution toggle
 - [ ] 🌐 Online leaderboard
-- [ ] 🎨 Unlockable color themes
 - [ ] 📦 PyInstaller executable for non-developers
 
 ---
