@@ -7,7 +7,7 @@
 [![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Pygame](https://img.shields.io/badge/Pygame-2.5%2B-00D800?style=for-the-badge&logo=python&logoColor=white)](https://pygame.org)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
-[![Stars](https://img.shields.io/github/stars/khushalv21/flappybirdgame?style=for-the-badge&color=yellow)](https://github.com/khushalv21/flappybirdgame)
+[![Stars](https://img.shields.io/github/stars/khushalv21/flappybirdgame?style=for-the-badge&color=yellow)](https://github.com/khushalv21/flappybird-neon.git)
 
 <br/>
 
